@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'img/header/logo.svg' %}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+    <title>{{title}}</title>
+</head>
+<body>
+<div class="wrapper">
+<div class="up">
+<header class="header">
+    <div class="container">
+        <a href="{% url 'home' %}" class="header-logo">
+                    <img src="{% static 'img/header/logo.svg' %}" alt="logo">
+                    <span>THE LOOP</span>
+        </a>
+        <div class="header-row">
+            <ul class="header-naw-left">
+                <li class="header-naw_for naw_for_cat">Категории<img src="{% static 'img/header/polygon.svg' %}" alt="Мужская одежда">
+                <div class="sub-menu sub-menu-cats">
+                    {% for cat in cats %}
+                        <div class="_col"><a href="{{ cat.get_absolute_url }}">{{ cat }}</a></div>
+                    {% endfor %}
+                </div>
+            </li>
+                <li class="header-naw_for naw_for_coll">Коллекции<img src="{% static 'img/header/polygon.svg' %}" alt="Женская одежда">
+                <div class="sub-menu sub-menu-cols">
+                    {% for col in cols %}
+                        <div class="_col"><a href="{{ col.get_absolute_url }}">{{ col }}</a></div>
+                    {% endfor %}
+                </div>
+                </li>
+            </ul>
+            <ul class="header-naw-right">
+                {% if not request.user.is_authenticated %}
+                <li class="header-naw_for"><a href="{% url 'register' %}">Регистрация</a> <a href="{% url 'login' %}">Войти</a></li>
+                {% else %}
+                <li class="header-naw_for"><a href="{% url 'logout' %}">Выйти</a></li>
+
+                {% endif %}
+
+                <li class="header-naw_for"><a href="{% url 'about' %}">О нас</a></li>
+            </ul>
+            <div class="header-shopping">
+                {% if request.user.is_authenticated and not kolich == 0 %}<a href="{% url 'bascet' %}">{% endif %}<img src="{% static 'img/header/basket-button.svg' %}" alt="Корзина">
+                {% if request.user.is_authenticated and not kolich == 0 %}</a>{% endif %}
+                <img class="header-shopping_arrow" src="{% static 'img/header/arrow.svg' %}" alt="Количество товаров">
+                <span>{% if request.user.is_authenticated %}{{ kolich }}{% else %}0{% endif %}</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% block content %}
+{% endblock %}
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-l">
+                    <img src="{% static 'img/header/logo.svg' %}" alt="logo">
+                    <h1>THE LOOP</h1>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla faucibus egestas elit, at eleifend elit ornare ut.</p>
+            </div>
+            <ul class="footer-items">
+                <li class="footer-item">
+                    <div class="footer-item-d">
+                        <h3>Основные ссылки</h3>
+                        <ul>
+                            <li><a href="{% url 'about' %}">О компании</a></li>
+                            <li><a href="#">Каталог</a></li>
+                            <li><a href="#">Доставка</a></li>
+                            <li><a href="#">Оплата</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="footer-item">
+                    <div class="footer-item-d">
+                        <h3>Категории</h3>
+                        <ul>
+                            <li><a href="#">Мужская одежда</a></li>
+                            <li><a href="#">Женская одежда</a></li>
+                            <li><a href="#">Детская одежда</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="footer-item">
+                    <div class="footer-item-d">
+                        <h3>ПОЛЕЗНЫЕ ССЫЛКИ</h3>
+                        <ul>
+                            <li><a href="#">Таблица размеров</a></li>
+                            <li><a href="#">Блог о моде</a></li>
+                            <li><a href="#">Наша миссия</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="footer-item">
+                    <div class="footer-item-d">
+                        <h3>СОЦ СЕТИ</h3>
+                        <ul>
+                            <li class="footer-social"><a href="#"><img src="{% static 'img/footer/vk.svg' %}" alt="vk">VK.com</a></li>
+                            <li class="footer-social"><a href="#"><img src="{% static 'img/footer/facebook.svg' %}" alt="vk">Facebook</a></li>
+                            <li class="footer-social"><a href="#"><img src="{% static 'img/footer/instagram.svg' %}" alt="vk">Instagram</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</div>
+<script src="{% static 'js/sub.js' %}"></script>
+</body>
+</html>

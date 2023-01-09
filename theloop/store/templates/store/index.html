@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="promo">
+        <div class="main-slide">
+            {% for p in first4 %}
+            <div class="main-slide-eeee">
+                <div class="promo-content">
+                    <span>Зимняя распродажа</span>
+                    <h2>СКИДКИ ДО {{p.discount}}%</h2>
+                    <a class="btn" href="{{ p.get_absolute_url }}">СМОТРЕТЬ МОДЕЛИ</a>
+                </div>
+                <div class="promo-picture">
+                    <img src="{{p.photo.url}}" alt="new shoes">
+
+                    <span class="header-old_price" >{{p.price}} ₽</span>
+                    <h2 class="header-new_price">{{ p.pricedisc }} ₽</h2>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="controls">
+            {% for p in first4 %}
+            <button class="btn_ul" data-num="{{ forloop.counter0 }}"></button>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+<script src="{% static 'js/list.js' %}"></script>
+{% endblock %}

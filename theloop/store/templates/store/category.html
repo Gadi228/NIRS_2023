@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="catalog">
+    <div class="container">
+        <div class="products">
+            <ul class="products-with-cut">
+                {% for p in clothes_list %}
+                    <li class="product_in_list">
+
+                        <a href="{{ p.get_absolute_url }}"><div class="photo" style="background-image: url({{ p.photo.url }});"></div></a>
+                        <div class="info">
+                            <a href="{{ p.get_absolute_url }}"><p class="title-clothes">{{ p.name }}</p></a>
+
+                            <p class="price">{% if p.pricedisc %}<span class="old-price">{{ p.price }}</span>  {{ p.pricedisc }}
+                            {% else %}<span class="norm-price">{{ p.price }}</span>
+                            {% endif %}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
